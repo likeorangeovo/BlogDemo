@@ -11,10 +11,10 @@
         >
           <div class="person">
             <p style="font-size: 2rem;font-weight:bold">{{title}}</p>
-            <p>作者:{{author}}</p>
+            <p>作者: {{username}}</p>
             <div class="person_bottom">
-              <p>更新于:{{update}}</p>
-              <p>发表于:{{create}}</p>
+              <p>更新于: {{update}}</p>
+              <p>发表于: {{create}}</p>
             </div>
           </div>
           <mavon-editor
@@ -43,7 +43,8 @@ export default {
       title:"title",
       author:"author",
       update:"update",
-      create:"created"
+      create:"created",
+      username:"username"
     };
   },
   components: {
@@ -56,6 +57,7 @@ export default {
       this.update = this.$route.params.update.substring(0,10);
       this.create = this.$route.params.create.substring(0,10);
       this.author = this.$route.params.author;
+      this.username = this.$route.params.username;
     }
   },
   

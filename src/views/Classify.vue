@@ -53,6 +53,7 @@ export default {
             update: data.update,
             title: data.title,
             author: data.author,
+            username: data.username
           },
         });
       }
@@ -65,7 +66,8 @@ export default {
             create: j.createTime,
             update: j.updateTime,
             title: j.name,
-            author: j.userId })
+            author: j.userId,
+            username: j.username })
         }
         this.data.push({ label: i.name, children: child });
       }

@@ -55,6 +55,7 @@ export default {
           update: this.artdata.updateTime,
           title: this.artdata.name,
           author: this.artdata.userId,
+          username: this.artdata.username,
         },
       });
       console.log(this.artdata);

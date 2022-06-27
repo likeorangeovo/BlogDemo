@@ -5,7 +5,7 @@
       <p style="font-weight:bold">公告</p>
     </div>
     <div class="notice">
-      <p>帝国男子石油高中CS系的菜鸟🤡，记录自己的所学所感🤣欢迎小伙伴们交换友链啊😁</p>
+      <p>如果看到这里 希望你快乐！</p>
     </div>
      </div>
   </div>

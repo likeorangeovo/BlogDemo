@@ -4,7 +4,7 @@ on:
   push:
     branches:
       # mian分支，你也可以改成其他分支
-      - master
+      - master 
 jobs:
   # 任务ID
   build:

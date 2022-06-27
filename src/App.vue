@@ -13,11 +13,11 @@ export default {
     };
   },
 
-  created(){ 
-        if(this.$router.path != '/home'){
-            this.$router.replace('/home')
-        }
-    }
+  // created(){ 
+  //       if(this.$router.path != '/home'){
+  //           this.$router.replace('/home')
+  //       }
+  //   }
 
 };
 </script>

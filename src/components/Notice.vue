@@ -5,7 +5,7 @@
       <p style="font-weight:bold">公告</p>
     </div>
     <div class="notice">
-      <p>如果看到这里 希望你快乐！</p>
+      <p>山高路远，看世界，也找自己</p>
     </div>
      </div>
   </div>

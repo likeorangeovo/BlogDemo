@@ -105,6 +105,15 @@ export default {
       }
     },
   },
+
+  watch: {
+  "$store.state.total":{
+    handler:function(newVal){
+      this.total = newVal
+    }
+  }
+}
+
 };
 </script>
 

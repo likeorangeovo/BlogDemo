@@ -11,7 +11,7 @@
             v-for="item in listData"
             :artdata="item"
             :key="item.id"
-            @delete="handleDelete(item.index)"
+            @delete="changeList"
           ></article-item>
         </el-main>
         <el-footer
@@ -42,6 +42,7 @@ export default {
       pagesize: 5,
       currentpage: 1,
       listData: [],
+      timer: null,
     };
   },
 
@@ -61,9 +62,19 @@ export default {
       // console.log(res);
       this.listData = res.data.data.records;
     },
-    handleDelete(index) {
-      this.listData.splice(index, 1);
-      this.$forceUpdate();
+    changeList() {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(async () => {
+        const res = await requestArticleApi({
+          page: this.currentpage,
+          pageSize: this.pagesize,
+          userId: this.$store.state.userId,
+        });
+        console.log(res);
+        this.listData = res.data.data.records;
+        this.$store.commit('changeTotal', Number(res.data.data.total));
+        this.$forceUpdate();
+      }, 2000);
     },
   },
 

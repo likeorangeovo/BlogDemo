@@ -23,3 +23,16 @@ export const deleteArticle = (params) => request({
   params,
   method:'get'
 })
+
+export const getCommentlist = (params) => request({
+  url:'/comment/list',
+  params,
+  method:'get'
+})
+
+export const addComment = (params) => request({
+  url:'/comment/add',
+  data:params,
+  method:'post',
+  headers:{'content-type':'application/json'}
+})

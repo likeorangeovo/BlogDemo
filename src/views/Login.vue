@@ -133,7 +133,8 @@ export default {
       if (res.data.code == 1) {
         this.$store.commit("changelogin", 1);
         this.$store.commit("changeUserId", res.data.data.id);
-        this.$store.commit('changeImgId',res.data.data.icon)
+        this.$store.commit('changeImgId',res.data.data.icon);
+        this.$store.commit('changeUsername',res.data.data.username);
         localStorage.setItem("userInfo",JSON.stringify(res.data.data))
         this.$router.push("/home");
         // console.log(res)

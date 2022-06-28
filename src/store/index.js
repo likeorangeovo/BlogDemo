@@ -11,7 +11,8 @@ const store = new Vuex.Store({
     userId: null ,
     onesay:'',
     total:0,
-    imgId: 'default_img.jpg'
+    imgId: 'default_img.jpg',
+    username:''
   },
   mutations:{
     changelogin(state,temp){
@@ -40,6 +41,10 @@ const store = new Vuex.Store({
       state.total = 0,
       state.imgId = 'default_img.jpg'
     },
+
+    changeUsername(state,user){
+      state.username = user
+    }
   },
   actions:{
  

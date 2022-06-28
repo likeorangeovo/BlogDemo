@@ -1,5 +1,5 @@
 import { LoginBlog } from "./Login";
-import { requestArticle,updateArticle,addArticle,deleteArticle } from "./article";
+import { requestArticle,updateArticle,addArticle,deleteArticle,getCommentlist,addComment } from "./article";
 import { Onesay } from "./onesay.js";
 import { timeLine } from "./timeline";
 import { register } from "./register";
@@ -27,3 +27,5 @@ export const showUserApi = showUser;
 export const updateArticleApi = updateArticle;
 export const addArticleApi = addArticle;
 export const deleteArticleApi = deleteArticle;
+export const getCommentlistApi = getCommentlist;
+export const addCommentApi = addComment;

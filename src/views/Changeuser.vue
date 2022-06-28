@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <el-main>
+    <el-main style="width:100%;height:100%;overflow:hidden">
       <el-form
         ref="form"
         label-width="100px"
-        style="max-width: 800px"
+        style="width: 30vw;text-align: center;height:70vh;overflow: hidden;"
       >
         <!-- 个人信息 -->
         <el-avatar
           :src="imgurl"
         ></el-avatar>
 
-        <el-form-item label="账号">
+        <el-form-item label="账号" >
           <el-input
             v-model="account"
             required
@@ -25,9 +25,9 @@
             placeholder="不少于5位"
           ></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="change">立刻创建</el-button>
-          <el-upload
+        <el-form-item style="display:flex;justify-content:center">
+          <el-button type="primary" @click="change" style="">立刻创建</el-button>
+          <el-upload  style="margin-top: 40px"
             :action="loadurl"
             :limit="1"
             :on-exceed="handleExceed"
@@ -35,7 +35,7 @@
             :show-file-list="true"
             :on-success="handleSuccess"
           >
-            <el-button size="small" type="primary">点击上传</el-button>
+            <el-button type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
       </el-form>
@@ -104,6 +104,7 @@ export default {
   width: 5rem;
   height: 5rem;
   margin-bottom: 1%;
+  margin-left: 100px;
 }
 .load {
   display: flex;

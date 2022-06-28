@@ -66,6 +66,7 @@ export default {
       page: this.currentpage,
       pageSize: this.pagesize,
     });
+          console.log(res);
     (this.total = Number(res.data.data.total)),
       (this.listData = res.data.data.records);
   },

@@ -53,7 +53,8 @@ export default {
             update: data.update,
             title: data.title,
             author: data.author,
-            username: data.username
+            username: data.username,
+            artid:data.artid
           },
         });
       }
@@ -67,7 +68,8 @@ export default {
             update: j.updateTime,
             title: j.name,
             author: j.userId,
-            username: j.username })
+            username: j.username,
+            artid:j.id })
         }
         this.data.push({ label: i.name, children: child });
       }

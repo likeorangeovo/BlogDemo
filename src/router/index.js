@@ -91,7 +91,8 @@ router.beforeEach((to, from, next) => {
     store.commit('changelogin', 1);
     store.commit("changeUserId", userInfo.id);
     store.commit('changeTotal', localStorage.getItem('total'));
-    store.commit('changeImgId',userInfo.icon)
+    store.commit('changeImgId',userInfo.icon);
+    store.commit('changeUsername',userInfo.username);
   }
   if (store.state.logined === 0) {
     if (to.path === '/home' || to.path === '/article' || to.path === '/classify') {

@@ -56,6 +56,7 @@ export default {
           title: this.artdata.name,
           author: this.artdata.userId,
           username: this.artdata.username,
+          artid:this.artdata.id
         },
       });
       console.log(this.artdata);

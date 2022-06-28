@@ -57,7 +57,8 @@ export default {
           update: artdata.updateTime,
           title: artdata.name,
           author: artdata.userId,
-          username: artdata.username
+          username: artdata.username,
+          artid:artdata.id
         },
       });
     },

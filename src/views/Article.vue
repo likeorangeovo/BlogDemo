@@ -10,11 +10,11 @@
           style="text-align: left; word-wrap: break-word"
         >
           <div class="person">
-            <p style="font-size: 2rem;font-weight:bold">{{title}}</p>
-            <p>作者: {{username}}</p>
+            <p style="font-size: 2rem; font-weight: bold">{{ title }}</p>
+            <p>作者: {{ username }}</p>
             <div class="person_bottom">
-              <p>更新于: {{update}}</p>
-              <p>发表于: {{create}}</p>
+              <p>更新于: {{ update }}</p>
+              <p>发表于: {{ create }}</p>
             </div>
           </div>
           <mavon-editor
@@ -27,6 +27,24 @@
             :ishljs="true"
           ></mavon-editor>
         </div>
+        <div class="comment">
+          <el-input
+            clearable
+            v-model="commentTxt"
+            placeholder="请输入评论内容"
+            style="margin-bottom: 1rem"
+          ></el-input
+          ><el-button
+            icon="el-icon-s-promotion"
+            @click.stop="addComment"
+          ></el-button>
+        </div>
+        <comment-item
+          class="comment"
+          v-for="item of comment"
+          :key="item.id"
+          :msg="item"
+        ></comment-item>
       </el-main>
     </el-container>
   </div>
@@ -34,33 +52,76 @@
 
 <script>
 import AsideItem from "@/views/Aside.vue";
+import CommentItem from "@/components/Comment.vue";
+import { getCommentlistApi, addCommentApi } from "@/api";
 export default {
   name: "BlogArticle",
 
   data() {
     return {
-      mdData:"",
-      title:"title",
-      author:"author",
-      update:"update",
-      create:"created",
-      username:"username"
+      mdData: "",
+      title: "title",
+      author: "author",
+      update: "update",
+      create: "created",
+      username: "username",
+      artid: "artid",
+      commentTxt: "",
+      comment: [
+        {
+          username: "我是谁",
+          userid: "1212312",
+          content: "what are you doing",
+          url: this.$store.state.imgId,
+        },
+        {
+          username: "我是谁",
+          userid: "1212312",
+          content: "haskfkdsajjfas",
+          url: this.$store.state.imgId,
+        },
+      ],
     };
   },
   components: {
     AsideItem,
+    CommentItem,
   },
   async created() {
     if (this.$route.params.mdData != null) {
       this.mdData = this.$route.params.mdData;
       this.title = this.$route.params.title;
-      this.update = this.$route.params.update.substring(0,10);
-      this.create = this.$route.params.create.substring(0,10);
+      this.update = this.$route.params.update.substring(0, 10);
+      this.create = this.$route.params.create.substring(0, 10);
       this.author = this.$route.params.author;
       this.username = this.$route.params.username;
+      this.artid = this.$route.params.artid;
     }
+    const res = await getCommentlistApi({ articleId: this.artid });
+    console.log(res.data.data);
+    this.comment = res.data.data
   },
-  
+
+  methods: {
+    async addComment() {
+      const res = await addCommentApi(JSON.stringify({articleId:this.artid,comment:this.commentTxt}))
+      if (res.data.code == 1) {
+        this.$message({
+          message: "评论成功",
+          type: "success",
+        });
+      } else {
+        this.$message.error("评论失败，请重试");
+      }
+      this.comment.push({
+        username: this.$store.state.username,
+        userid: this.$store.state.userId,
+        comment: this.commentTxt,
+        icon: this.$store.state.imgId,
+      });
+      this.$forceUpdate();
+    },
+  },
 };
 </script>
 
@@ -129,14 +190,23 @@ export default {
 .person p {
   text-align: center;
   padding-top: 0.8rem;
-  
 }
 .person_bottom {
   margin: 0rem 12rem;
   display: flex;
   justify-content: space-between;
 }
-.person_bottom p{
+.person_bottom p {
   padding-top: 0rem;
+}
+
+.comment {
+  display: flex;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0rem auto 0.1rem;
+}
+.el-button {
+  height: 50%;
 }
 </style>

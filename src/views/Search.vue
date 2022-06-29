@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       content: "",
-      listData:[]
+      listData: [],
     };
   },
   components: {
@@ -46,6 +46,10 @@ export default {
       const res = await searchApi({ keywords: this.content });
       this.listData = res.data.data;
       console.log(res);
+      this.$message({
+        message: res.data.msg,
+        type: "success",
+      });
     },
   },
 };

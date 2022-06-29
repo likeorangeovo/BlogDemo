@@ -111,16 +111,16 @@ export default {
           message: res.data.msg,
           type: "success",
         });
-      } else {
-        this.$message.error(res.data.msg);
-      }
-      this.comment.push({
+        this.comment.push({
         username: this.$store.state.username,
         userid: this.$store.state.userId,
         comment: this.commentTxt,
         icon: this.$store.state.imgId,
       });
       this.$forceUpdate();
+      } else {
+        this.$message.error(res.data.msg);
+      }
     },
   },
 };

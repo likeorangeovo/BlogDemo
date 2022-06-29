@@ -1,2 +1,2 @@
 import axios from "axios";
-export const Onesay = axios.get('https://saying.api.azwcl.com/saying/get',{withCredentials:false})
+export const Onesay = axios.get('https://v1.hitokoto.cn?c=i&c=h&c=j', { withCredentials: false})

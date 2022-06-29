@@ -4,7 +4,7 @@
 ## 前端技术栈
 js,vue,vuex,elementui,git,nginx
 ## 文件目录
-src
+src<br />
 ├─api 所有接口均封装在该目录下的index.js中<br />
 ├─assets 静态资源<br />
 ├─components 封装的组件<br />

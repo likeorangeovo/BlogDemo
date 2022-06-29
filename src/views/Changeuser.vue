@@ -87,20 +87,27 @@ export default {
           password: this.password,
           icon: this.id,
         });
-        this.$store.commit("changeImgId", this.id);
-        let temp = JSON.parse(window.localStorage.userInfo);
-        temp.icon = this.id;
-        let str = JSON.stringify(temp);
-        window.localStorage.setItem("userInfo", str);
-        this.$message({
-          message: res.data.msg,
-          type: "success",
-        });
-        const res1 = await logOutApi();
-        if (res1.data.code == 1) {
-          this.$store.commit("logout");
-          localStorage.removeItem("userInfo");
-          this.$router.push("/login");
+        if (res.data.code == 1) {
+          this.$store.commit("changeImgId", this.id);
+          let temp = JSON.parse(window.localStorage.userInfo);
+          temp.icon = this.id;
+          let str = JSON.stringify(temp);
+          window.localStorage.setItem("userInfo", str);
+          this.$message({
+            message: res.data.msg,
+            type: "success",
+          });
+          const res1 = await logOutApi();
+          if (res1.data.code == 1) {
+            this.$store.commit("logout");
+            localStorage.removeItem("userInfo");
+            this.$router.push("/login");
+          }
+        } else {
+          this.$message({
+            message: res.data.msg,
+            type: "error",
+          });
         }
       });
     },

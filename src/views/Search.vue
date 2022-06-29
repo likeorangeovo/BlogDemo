@@ -46,10 +46,17 @@ export default {
       const res = await searchApi({ keywords: this.content });
       this.listData = res.data.data;
       console.log(res);
-      this.$message({
-        message: res.data.msg,
-        type: "success",
-      });
+      if (res.data.code == 1) {
+        this.$message({
+          message: res.data.msg,
+          type: "success",
+        });
+      } else {
+        this.$message({
+          message: res.data.msg,
+          type: "error",
+        });
+      }
     },
   },
 };

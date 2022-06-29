@@ -30,7 +30,7 @@
         <div class="comment">
           <el-input
             clearable
-            v-model="commentTxt"
+            v-model.trim="commentTxt"
             placeholder="请输入评论内容"
             style="margin-bottom: 1rem"
           ></el-input
@@ -104,14 +104,15 @@ export default {
 
   methods: {
     async addComment() {
+
       const res = await addCommentApi(JSON.stringify({articleId:this.artid,comment:this.commentTxt}))
       if (res.data.code == 1) {
         this.$message({
-          message: "评论成功",
+          message: res.data.msg,
           type: "success",
         });
       } else {
-        this.$message.error("评论失败，请重试");
+        this.$message.error(res.data.msg);
       }
       this.comment.push({
         username: this.$store.state.username,

@@ -95,7 +95,7 @@ router.beforeEach((to, from, next) => {
     store.commit('changeUsername',userInfo.username);
   }
   if (store.state.logined === 0) {
-    if (to.path === '/home' || to.path === '/article' || to.path === '/classify') {
+    if (to.path === '/home' || to.path === '/article' || to.path === '/classify' || to.path ==='/search') {
       next()
       // console.log(11111) 
     }

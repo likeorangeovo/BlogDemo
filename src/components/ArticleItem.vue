@@ -5,8 +5,8 @@
       alt=""
     />
     <div class="message">
-      <p class="title">{{ artdata.name }}</p>
-      <p class="article">{{ artdata.content }}</p>
+      <p class="title" v-html="artdata.name"></p>
+      <p class="article" v-html="artdata.content"></p>
       <el-button type="primary" plain @click.stop="sendData"
         >阅读全文</el-button
       >

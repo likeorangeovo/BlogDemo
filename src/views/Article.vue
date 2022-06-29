@@ -10,7 +10,7 @@
           style="text-align: left; word-wrap: break-word"
         >
           <div class="person">
-            <p style="font-size: 2rem; font-weight: bold">{{ title }}</p>
+            <p style="font-size: 2rem; font-weight: bold" v-html="title"></p>
             <p>作者: {{ username }}</p>
             <div class="person_bottom">
               <p>更新于: {{ update }}</p>

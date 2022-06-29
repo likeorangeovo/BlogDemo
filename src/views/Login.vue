@@ -114,7 +114,7 @@ export default {
       hint:'',
 
       loginForm: {
-        username: "admin",
+        username: "",
         password: "",
         repassword:""
       },

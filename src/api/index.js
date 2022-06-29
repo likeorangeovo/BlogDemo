@@ -11,6 +11,7 @@ import {unfollowUser} from './follow.js'
 import { load } from "./load";
 import { updateUser } from "./updateUser";
 import {showUser } from "./show"
+import { search } from "./search";
 export const LoginBlogApi = LoginBlog;
 export const requestArticleApi = requestArticle;
 export const OnesayApi = Onesay;
@@ -29,3 +30,4 @@ export const addArticleApi = addArticle;
 export const deleteArticleApi = deleteArticle;
 export const getCommentlistApi = getCommentlist;
 export const addCommentApi = addComment;
+export const searchApi = search;

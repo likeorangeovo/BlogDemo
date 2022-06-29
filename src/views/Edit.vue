@@ -115,11 +115,11 @@ export default {
       );
       if (res.data.code == 1) {
         this.$message({
-          message: "恭喜你，创建成功",
+          message: res.data.msg,
           type: "success",
         });
       } else {
-        this.$message.error("创建失败，请重试");
+        this.$message.error(res.data.msg);
       }
     },
     async change() {
@@ -132,12 +132,12 @@ export default {
       });
       if (res.data.code == 1) {
         this.$message({
-          message: "恭喜你，修改成功",
+          message: res.data.msg,
           type: "success",
         });
 
       } else {
-        this.$message.error("修改失败，请重试");
+        this.$message.error(res.data.msg);
       }
     },
 

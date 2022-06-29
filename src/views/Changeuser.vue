@@ -1,33 +1,35 @@
 <template>
   <div class="container">
-    <el-main style="width:100%;height:100%;overflow:hidden">
+    <el-main style="width: 100%; height: 100%; overflow: hidden">
       <el-form
         ref="form"
         label-width="100px"
-        style="width: 30vw;text-align: center;height:70vh;overflow: hidden;"
+        style="width: 30vw; text-align: center; height: 70vh; overflow: hidden"
       >
         <!-- 个人信息 -->
-        <el-avatar
-          :src="imgurl"
-        ></el-avatar>
+        <el-avatar :src="imgurl"></el-avatar>
 
-        <el-form-item label="账号" >
+        <el-form-item label="用户名">
           <el-input
-            v-model="account"
+            v-model.trim="username"
             required
-            placeholder="请输入你的账号"
+            placeholder="请输入你的用户名"
           ></el-input>
         </el-form-item>
         <el-form-item label="密码">
           <el-input
-            v-model="password"
+            show-password
+            v-model.trim="password"
             required
             placeholder="不少于5位"
           ></el-input>
         </el-form-item>
-        <el-form-item style="display:flex;justify-content:center">
-          <el-button type="primary" @click="change" style="">立刻创建</el-button>
-          <el-upload  style="margin-top: 40px"
+        <el-form-item style="display: flex; justify-content: center">
+          <el-button type="primary" @click="change" style=""
+            >立即修改</el-button
+          >
+          <el-upload
+            style="margin-top: 40px"
             :action="loadurl"
             :limit="1"
             :on-exceed="handleExceed"
@@ -44,18 +46,20 @@
 </template>
 
 <script>
-import { loadApi } from "@/api";
-import {updateUserApi} from "@/api"
+import { loadApi, showUserApi, logOutApi } from "@/api";
+import { updateUserApi } from "@/api";
 export default {
   name: "blogUser",
   data() {
     return {
-      account:'',
-      id:'',
-      password:'',
+      username: "",
+      account: "",
+      id: this.$store.state.imgId,
+      password: "",
       fileList: [],
       loadurl: "/api/file/upload",
-      imgurl:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+      imgurl: "",
+      imgId: "",
     };
   },
   methods: {
@@ -65,23 +69,52 @@ export default {
     handleExceed() {
       this.$message.error("请删除后重新上传");
     },
-   async handleSuccess(response) {
+    async handleSuccess(response) {
       console.log(response.msg);
       this.id = response.msg;
-      const res = await loadApi({name:this.id});
-      const src = window.URL.createObjectURL(res.data)
-      console.log(src)
-      this.imgurl = src
+      const res = await loadApi({ name: this.id });
+      const src = window.URL.createObjectURL(res.data);
+      console.log(src);
+      this.imgurl = src;
     },
-    async change(){
-      const res = await updateUserApi({username:this.username,password:this.password,icon:this.id})
-      this.$store.commit('changeImgId', this.id);
-      let temp = JSON.parse(window.localStorage.userInfo)
-      temp.icon = this.id;
-      let str = JSON.stringify(temp)
-      window.localStorage.setItem('userInfo',str);
-      this.$message(res.data.msg);
+    change() {
+      this.$confirm("是否确认修改？", "确定修改", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+      }).then(async () => {
+        const res = await updateUserApi({
+          username: this.username,
+          password: this.password,
+          icon: this.id,
+        });
+        this.$store.commit("changeImgId", this.id);
+        let temp = JSON.parse(window.localStorage.userInfo);
+        temp.icon = this.id;
+        let str = JSON.stringify(temp);
+        window.localStorage.setItem("userInfo", str);
+        this.$message({
+          message: res.data.msg,
+          type: "success",
+        });
+        const res1 = await logOutApi();
+        if (res1.data.code == 1) {
+          this.$store.commit("logout");
+          localStorage.removeItem("userInfo");
+          this.$router.push("/login");
+        }
+      });
+    },
+  },
+  async created() {
+    if (this.$store.state.logined == 1) {
+      const msg = await showUserApi({ userId: this.$store.state.userId });
+      // console.log(msg);
+      this.imgId = msg.data.data.icon;
+      // console.log(this.followed);
     }
+    const res = await loadApi({ name: this.imgId });
+    const src = window.URL.createObjectURL(res.data);
+    this.imgurl = src;
   },
 };
 </script>

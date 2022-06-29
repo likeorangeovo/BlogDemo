@@ -6,11 +6,19 @@
       </el-aside>
       <el-main>
         <div class="search">
-          <el-input placeholder="请输入内容" v-model="Input">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input placeholder="请输入内容" v-model="content">
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="searchContent"
+            ></el-button>
           </el-input>
         </div>
-        <article-item></article-item>
+        <article-item
+          v-for="item in listData"
+          :artdata="item"
+          :key="item.id"
+        ></article-item>
       </el-main>
     </el-container>
   </div>
@@ -19,17 +27,26 @@
 <script>
 import AsideItem from "@/views/Aside.vue";
 import ArticleItem from "@/components/ArticleItem.vue";
+import { searchApi } from "@/api";
 export default {
   name: "BlogSearch",
 
   data() {
     return {
-      Input: "",
+      content: "",
+      listData:[]
     };
   },
   components: {
     AsideItem,
     ArticleItem,
+  },
+  methods: {
+    async searchContent() {
+      const res = await searchApi({ keywords: this.content });
+      this.listData = res.data.data;
+      console.log(res);
+    },
   },
 };
 </script>

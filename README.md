@@ -5,13 +5,13 @@
 js,vue,vuex,elementui,git,nginx
 ## 文件目录
 src
-├─api 所有接口均封装在该目录下的index.js中
-├─assets 静态资源
-├─components 封装的组件
-├─router 路由、全局前置守卫
-├─store	vuex
-├─utils	封装的request.js
-└─views	页面文件
+├─api 所有接口均封装在该目录下的index.js中<br />
+├─assets 静态资源<br />
+├─components 封装的组件<br />
+├─router 路由、全局前置守卫<br />
+├─store	vuex<br />
+├─utils	封装的request.js<br />
+└─views	页面文件<br />
 ## 开发期间遇到的BUG
 * 请求接口的跨域
 * 前端服务器部署时的跨域

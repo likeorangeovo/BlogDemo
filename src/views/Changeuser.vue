@@ -2,6 +2,8 @@
   <div class="container">
     <el-main style="width: 100%; height: 100%; overflow: hidden">
       <el-form
+        :rules="FormRules"
+        :model="Form"
         ref="form"
         label-width="100px"
         style="width: 30vw; text-align: center; height: 70vh; overflow: hidden"
@@ -9,19 +11,19 @@
         <!-- 个人信息 -->
         <el-avatar :src="imgurl"></el-avatar>
 
-        <el-form-item label="用户名">
+        <el-form-item label="用户名" prop="username">
           <el-input
-            v-model.trim="username"
+            v-model="Form.username"
             required
-            placeholder="请输入你的用户名"
+            placeholder="请输入要修改的用户名"
           ></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item label="密码" prop="password">
           <el-input
             show-password
-            v-model.trim="password"
+            v-model="Form.password"
             required
-            placeholder="不少于5位"
+            placeholder="请输入要修改的密码"
           ></el-input>
         </el-form-item>
         <el-form-item style="display: flex; justify-content: center">
@@ -52,6 +54,7 @@ export default {
   name: "blogUser",
   data() {
     return {
+    
       username: "",
       account: "",
       id: this.$store.state.imgId,
@@ -60,6 +63,34 @@ export default {
       loadurl: "/api/file/upload",
       imgurl: "",
       imgId: "",
+
+
+      Form: {
+        username: this.username,
+        password: this.password,
+        ImgId: this.id,
+      },
+
+      FormRules: {
+        username: [
+          { required: true, trigger: "blur" },
+          {
+            min: 3,
+            max: 10,
+            message: "长度在 3 到 10 个字符",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          { required: true, trigger: "blur" },
+          {
+            min: 6,
+            max: 16,
+            message: "长度在 6 到 16 个字符",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
@@ -78,6 +109,10 @@ export default {
       this.imgurl = src;
     },
     change() {
+      if (!this.checkForm()) {
+        this.$message.error(this.errormsg);
+        return;
+      }
       this.$confirm("是否确认修改？", "确定修改", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -111,6 +146,23 @@ export default {
         }
       });
     },
+
+
+    //校验
+    checkForm() {
+      // 1.校验必填项
+      let validForm = false;
+      this.$refs["form"].validate((valid) => {
+        validForm = valid;
+      });
+      if (!validForm) {
+        this.errormsg = "填写信息不符合要求！";
+        return false;
+      }
+
+      return true;
+    },
+
   },
   async created() {
     if (this.$store.state.logined == 1) {

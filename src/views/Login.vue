@@ -115,6 +115,7 @@ export default {
       login: this.$store.state.logined,
       register: 0,
       hint: "",
+      errormsg:"",
 
       loginForm: {
         username: "",
@@ -148,8 +149,8 @@ export default {
 
   methods: {
     async handleLogin() {
-      if (!this.checkForm()) {
-        this.$message.error("请按照要求填写信息！");
+      if (!this.checkForm(1)) {
+        this.$message.error(this.errormsg);
         return;
       }
 
@@ -172,8 +173,8 @@ export default {
     },
 
     async handleRegister() {
-      if (!this.checkForm()) {
-        this.$message.error("请按照要求填写信息！");
+      if (!this.checkForm(0)) {
+        this.$message.error(this.errormsg);
         return;
       }
 
@@ -210,17 +211,19 @@ export default {
     },
 
     // 表单校验
-    checkForm() {
+    checkForm(isLogin) {
       // 1.校验必填项
       let validForm = false;
       this.$refs["loginForm"].validate((valid) => {
         validForm = valid;
       });
       if (!validForm) {
+        this.errormsg = "填写信息不符合要求！";
         return false;
       }
       //2.校验两次密码是否一致
-      if (this.loginForm.password !== this.loginForm.repassword) {
+      if (this.loginForm.password !== this.loginForm.repassword && isLogin == 0) {
+        this.errormsg = "密码不一致！";
         return false;
       }
 
@@ -232,7 +235,7 @@ export default {
 };
 </script>
 
-
+  
 
 <style scoped>
 .container {

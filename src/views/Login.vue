@@ -61,9 +61,10 @@
               placeholder="password"
               @input="check"
             >
-            <template slot="suffix">
-                <p>{{hint}}</p>
-            </template></el-input>
+              <template slot="suffix">
+                <p>{{ hint }}</p>
+              </template></el-input
+            >
           </el-form-item>
 
           <!-- 登录按钮 -->
@@ -92,7 +93,9 @@
             <!-- <span style="margin-right: 20px" @click="selectlogin">username: admin</span>
             <span @click="selectregister"> password: admin</span> -->
             <el-button type="text" @click.native="selectlogin">登录</el-button>
-            <el-button type="text" @click.native="selectregister">注册</el-button>
+            <el-button type="text" @click.native="selectregister"
+              >注册</el-button
+            >
           </div>
         </el-form>
       </el-main>
@@ -111,16 +114,32 @@ export default {
       activeIndex: "1",
       login: this.$store.state.logined,
       register: 0,
-      hint:'',
+      hint: "",
 
       loginForm: {
         username: "",
         password: "",
-        repassword:""
+        repassword: "",
       },
       loginRules: {
-        username: [{ required: true, trigger: "blur" }],
-        password: [{ required: true, trigger: "blur" }],
+        username: [
+          { required: true, trigger: "blur" },
+          {
+            min: 3,
+            max: 10,
+            message: "长度在 3 到 10 个字符",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          { required: true, trigger: "blur" },
+          {
+            min: 6,
+            max: 16,
+            message: "长度在 6 到 16 个字符",
+            trigger: "blur",
+          },
+        ],
       },
       pwdType: "password",
       redirect: undefined,
@@ -129,60 +148,87 @@ export default {
 
   methods: {
     async handleLogin() {
+      if (!this.checkForm()) {
+        this.$message.error("请按照要求填写信息！");
+        return;
+      }
+
       const res = await LoginBlogApi(JSON.stringify(this.loginForm));
       if (res.data.code == 1) {
         this.$store.commit("changelogin", 1);
         this.$store.commit("changeUserId", res.data.data.id);
-        this.$store.commit('changeImgId',res.data.data.icon);
-        this.$store.commit('changeUsername',res.data.data.username);
-        localStorage.setItem("userInfo",JSON.stringify(res.data.data))
+        this.$store.commit("changeImgId", res.data.data.icon);
+        this.$store.commit("changeUsername", res.data.data.username);
+        localStorage.setItem("userInfo", JSON.stringify(res.data.data));
         this.$router.push("/home");
         // console.log(res)
         // console.log('------------------')
         // console.log(JSON.parse(localStorage.getItem("userInfo")));
       } else {
-        this.$alert(res.data.msg, '提示', {
-          confirmButtonText: '确定',
+        this.$alert(res.data.msg, "提示", {
+          confirmButtonText: "确定",
         });
-
       }
     },
 
     async handleRegister() {
-      const res = await registerApi(JSON.stringify({username:this.loginForm.username,password:this.loginForm.password}));
+      if (!this.checkForm()) {
+        this.$message.error("请按照要求填写信息！");
+        return;
+      }
+
+      const res = await registerApi(
+        JSON.stringify({
+          username: this.loginForm.username,
+          password: this.loginForm.password,
+        })
+      );
       if (res.data.code == 1) {
-        this.$alert('注册成功，请登录', '提示', {
-          confirmButtonText: '确定',
+        this.$alert("注册成功，请登录", "提示", {
+          confirmButtonText: "确定",
         });
         this.$router.push("/login");
       } else {
         console.log(res);
-        this.$alert(res.data.msg, '提示', {
-          confirmButtonText: '确定',
+        this.$alert(res.data.msg, "提示", {
+          confirmButtonText: "确定",
         });
-
       }
     },
-    selectlogin(){
+    selectlogin() {
       this.register = 0;
     },
-    selectregister(){
+    selectregister() {
       this.register = 1;
     },
-    check(){
-      if(this.loginForm.password !== this.loginForm.repassword){
-        this.hint = '密码不匹配'
+    check() {
+      if (this.loginForm.password !== this.loginForm.repassword) {
+        this.hint = "密码不匹配";
+      } else {
+        this.hint = "";
       }
-      else{
-        this.hint = ''
-      }
-    }
+    },
 
+    // 表单校验
+    checkForm() {
+      // 1.校验必填项
+      let validForm = false;
+      this.$refs["loginForm"].validate((valid) => {
+        validForm = valid;
+      });
+      if (!validForm) {
+        return false;
+      }
+      //2.校验两次密码是否一致
+      if (this.loginForm.password !== this.loginForm.repassword) {
+        return false;
+      }
+
+      return true;
+    },
   },
 
-  async destroyed() {
-    
-  },
+  async destroyed() {},
 };
 </script>
 

@@ -143,7 +143,7 @@ export default {
 
     toOption(val) {
       for (let item of val) {
-        this.options.push({ value: Number(item.id), label: item.name });
+        this.options.push({ value: String(item.id), label: item.name });
       }
     },
   },
@@ -154,7 +154,7 @@ export default {
     if (Object.keys(this.$route.params).length != 0) {
       (this.title = this.$route.params.title),
         (this.content = this.$route.params.content),
-        (this.value = this.$route.params.categoryId),
+        (this.value = String(this.$route.params.categoryId)),
         (this.dynamicTags = this.$route.params.tags),
         (this.edited = 1),
         (this.titleId = this.$route.params.titleId);

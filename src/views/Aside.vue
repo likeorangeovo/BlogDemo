@@ -9,9 +9,9 @@
       </div>
 
       <div class="link">
-        <div class="circle"><a href="*">Git</a></div>
-        <div class="circle"><a href="*">码</a></div>
-        <div class="circle"><a href="*">知</a></div>
+        <div class="circle"><a href="https://github.com/">Git</a></div>
+        <div class="circle"><a href="https://gitee.com/">码</a></div>
+        <div class="circle"><a href="https://www.zhihu.com/">知</a></div>
       </div>
 
       <div class="sum">

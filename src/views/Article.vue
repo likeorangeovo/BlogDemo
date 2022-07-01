@@ -98,7 +98,7 @@ export default {
       this.artid = this.$route.params.artid;
     }
     const res = await getCommentlistApi({ articleId: this.artid });
-    console.log(res.data.data);
+    // console.log(res.data.data);
     this.comment = res.data.data
   },
 

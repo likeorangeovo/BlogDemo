@@ -55,10 +55,11 @@ export default {
   async created() {
     if (this.$store.state.logined == 1) {
       const msg = await showUserApi({ userId: this.userId });
-      // console.log(msg);
+      console.log(msg);
       this.total = Number(msg.data.data.articleNum);
       this.imgId = msg.data.data.icon;
       const follow = msg.data.data.followedUser;
+      localStorage.setItem('total',msg.data.data.articleNum)
       this.judgeFollow(follow);
       // console.log(this.followed);
     }

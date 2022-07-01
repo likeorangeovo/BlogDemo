@@ -58,6 +58,7 @@ export default {
         if (res.data.code == 1) {
           this.$store.commit("logout");
           localStorage.removeItem("userInfo");
+          localStorage.removeItem("total");
           this.$router.push("/login");
         }
       });

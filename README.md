@@ -1,6 +1,6 @@
 # BLOG
 ## 前言
-基于springboot/node与vue开发的多人博客平台
+基于springboot/node与vue开发的多人博客平台<br />
 后端：[springboot](https://github.com/gqd000/OurBlog)/[node](https://github.com/1664635775/BlogApi)
 ## 前端技术栈
 js,vue,vuex,elementui,git,nginx

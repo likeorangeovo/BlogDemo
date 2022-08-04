@@ -134,7 +134,7 @@ export default {
         params: {
           content: this.artdata.content,
           title: this.artdata.name,
-          categoryId: Number(this.artdata.categoryId),
+          categoryId: this.artdata.categoryId,
           tags: this.totaglist(this.artdata.tags),
           titleId: this.artdata.id,
         },

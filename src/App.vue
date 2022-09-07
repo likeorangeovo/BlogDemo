@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: likeorange
+ * @Date: 2022-06-18 13:28:13
+ * @LastEditors: likeorange
+ * @LastEditTime: 2022-09-07 12:37:05
+-->
 <template>
   <div id="app">
     <router-view></router-view>
@@ -28,7 +36,7 @@ export default {
   padding: 0;
 }
 #app {
-  background: url("https://res.cloudinary.com/chengchengcheng/image/upload/v1655904591/blog/r_zv1nok.png");
+  background: url("http://shaking.link:888/images/background.png");
   width: 100%;
   height: 100%;
   position: fixed;

@@ -1,6 +1,15 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: likeorange
+ * @Date: 2022-06-18 13:28:13
+ * @LastEditors: likeorange
+ * @LastEditTime: 2022-09-07 12:54:10
+ */
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
     // transpileDependencies: true,
+    productionSourceMap: false,
     publicPath:"./",
     lintOnSave: false, //关闭eslint检查
     devServer: {
